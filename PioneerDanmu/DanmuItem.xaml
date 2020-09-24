@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="PioneerDanmu.DanmuItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PioneerDanmu"
+             mc:Ignorable="d" 
+             IsEnabled="False"
+             Focusable="False"
+             IsHitTestVisible="False"
+             d:DesignHeight="160" d:DesignWidth="800"
+             MaxWidth="800">
+    <Grid>
+        <Grid.Resources>
+            <SolidColorBrush Color="#FF7BDC8D" x:Key="DanmuBackgroundBrush"></SolidColorBrush>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="110"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border  IsHitTestVisible="False" Background="Gray" CornerRadius="50" HorizontalAlignment="Left" Width="100" Height="100" VerticalAlignment="Top">
+            <Image IsHitTestVisible="False" x:Name="avatorImg"  Width="100" Height="100">
+                <Image.Clip>
+                    <EllipseGeometry RadiusX="50" RadiusY="50" Center="50,50"/>
+                </Image.Clip>
+            </Image>
+        </Border>
+        <StackPanel IsHitTestVisible="False" Grid.Column="1">
+            <TextBlock IsHitTestVisible="False"  x:Name="nameText" Margin="15,5" FontSize="16" FontWeight="ExtraBold">企鹅号</TextBlock>
+            <Grid VerticalAlignment="Top" HorizontalAlignment="Left" >
+                <Grid Margin="16,0">
+                    <Border IsHitTestVisible="False" CornerRadius="5" Background="{StaticResource DanmuBackgroundBrush}">
+                        <Path IsHitTestVisible="False"  StrokeThickness="0" Fill="{StaticResource DanmuBackgroundBrush}" Canvas.Top="90" Canvas.Left="10">
+                            <Path.Data>
+                                <PathGeometry>
+                                    <PathGeometry.Figures>
+                                        <PathFigure StartPoint="0,35" IsClosed="True">
+                                            <LineSegment Point="-15,25" />
+                                            <LineSegment Point="0,15" />
+                                        </PathFigure>
+                                    </PathGeometry.Figures>
+                                </PathGeometry>
+                            </Path.Data>
+
+                        </Path>
+                    </Border>
+                </Grid>
+                <WrapPanel  IsHitTestVisible="False" Margin="35,10">
+                    <WrapPanel.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="FontSize" Value="30"></Setter>
+                            <Setter Property="TextWrapping" Value="Wrap"></Setter>
+                        </Style>
+                    </WrapPanel.Resources>
+                    <TextBlock IsHitTestVisible="False"  x:Name="contentText">
+                    </TextBlock>
+
+                </WrapPanel>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>
