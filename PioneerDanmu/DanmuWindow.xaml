@@ -16,7 +16,10 @@
         IsHitTestVisible="False"
         Opacity="0.7"
         Title="DanmuWindow" Height="450" Width="800">
-    <Canvas RenderOptions.BitmapScalingMode="LowQuality" x:Name="canvas" Margin="20">
-        
-    </Canvas>
+    <Grid>
+        <local:LotteryRect x:Name="rect" Panel.ZIndex="10000" Width="800" Height="450" HorizontalAlignment="Center" VerticalAlignment="Center"></local:LotteryRect>
+
+        <Canvas RenderOptions.BitmapScalingMode="LowQuality" x:Name="canvas" Margin="20">
+        </Canvas>
+    </Grid>
 </Window>

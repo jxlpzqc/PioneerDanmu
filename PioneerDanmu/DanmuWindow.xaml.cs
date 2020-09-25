@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -8,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
@@ -27,8 +29,45 @@ namespace PioneerDanmu
             {
                 CheckAndAdd(r);
             };
+            this.Loaded += (s, e) =>
+            {
+                SetHitTestInvisible();
+            };
         }
 
+        #region P/Invoke Part
+
+
+        public const int WS_EX_TRANSPARENT = 0x20;
+        
+        public enum GWL
+        {
+            GWL_WNDPROC = (-4),
+            GWL_HINSTANCE = (-6),
+            GWL_HWNDPARENT = (-8),
+            GWL_STYLE = (-16),
+            GWL_EXSTYLE = (-20),
+            GWL_USERDATA = (-21),
+            GWL_ID = (-12)
+        }
+
+
+        [DllImport("user32.dll", EntryPoint = "GetWindowLong")]
+        static extern IntPtr GetWindowLongPtr(IntPtr hWnd, int nIndex);
+
+        [DllImport("user32.dll")]
+        static extern int SetWindowLong(IntPtr hWnd, int nIndex, uint dwNewLong);
+
+        #endregion
+
+
+        private void SetHitTestInvisible()
+        {
+            var handle = new WindowInteropHelper(this).Handle;
+            var style = GetWindowLongPtr(handle, (int)GWL.GWL_EXSTYLE).ToInt32();
+            SetWindowLong(handle, (int)GWL.GWL_EXSTYLE, (uint)(style | WS_EX_TRANSPARENT));
+
+        }
 
         private async Task CheckAndAdd(int row)
         {

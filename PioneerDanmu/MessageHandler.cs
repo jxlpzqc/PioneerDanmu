@@ -1,7 +1,6 @@
 ﻿using Mirai_CSharp;
 using Mirai_CSharp.Models;
 using Mirai_CSharp.Plugin;
-using Mirai_CSharp.Plugin.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -17,6 +16,8 @@ namespace PioneerDanmu
         private static MiraiHttpSession session;
 
         private static long groupID;
+
+        public static event Action<IGroupMessageEventArgs> MessageReceived;
 
         public static async Task Configure()
         {
@@ -41,13 +42,21 @@ namespace PioneerDanmu
             }
             catch
             {
-                MessageBox.Show("程序连接服务器失败");
+                MessageBox.Show("程序连接Mirai服务器失败，该程序目前只能测试弹幕使用，如需正常使用，请配置正确后重新启动程序。");
             }
 
         }
 
+        public static async Task SendMessage(string message)
+        {
+            await session.SendGroupMessageAsync(groupID, new IMessageBase[] 
+            { 
+                new PlainMessage(message)
+            });
+        }
 
-        public class Plugin : IGroupMessage
+
+        public class Plugin : IPlugin<IGroupMessageEventArgs>, IPlugin
         {
             public async Task<bool> GroupMessage(MiraiHttpSession session, IGroupMessageEventArgs e)
             {
@@ -61,7 +70,14 @@ namespace PioneerDanmu
                     EncodedContent = e.Chain
                 });
 
+                MessageReceived?.Invoke(e);
+
                 return true;
+            }
+
+            public Task<bool> HandleEvent(MiraiHttpSession session, IGroupMessageEventArgs e)
+            {
+                return GroupMessage(session, e);
             }
         }
     }

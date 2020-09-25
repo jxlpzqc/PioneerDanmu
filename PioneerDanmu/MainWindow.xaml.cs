@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,9 +43,38 @@ namespace PioneerDanmu
             }
             window.Show();
 
+            InitQuestions();
+
             MessageHandler.Configure();
 
         }
+
+        private void InitQuestions()
+        {
+            var list = new List<QuestionModel>();
+            try { 
+                var lines = File.ReadAllLines("questions.txt");
+
+                for (int i = 0; i < lines.Length; i+=3)
+                {
+                    var content = lines[i];
+                    var answer = lines[i+1];
+                    var seconds = lines[i+2];
+                    list.Add(new QuestionModel
+                    {
+                        Content = content,
+                        RightAnswer = answer,
+                        Seconds = Convert.ToInt32(seconds)
+                    });
+                }
+                questions.ItemsSource = list;
+            }
+            catch
+            {
+                System.Windows.MessageBox.Show("解析问题文件失败");
+            }
+        }
+
 
         private DanmuWindow window = new DanmuWindow();
         
@@ -81,6 +111,15 @@ namespace PioneerDanmu
         private void Window_Closed(object sender, EventArgs e)
         {
             App.Current.Shutdown();
+        }
+
+        private void LotteryButton_Click(object sender, RoutedEventArgs e)
+        {
+            var q = questions.SelectedItem as QuestionModel;
+            if (q == null) return;
+            var dialog = new LotteryControlWindow(window.rect, q);
+            dialog.ShowDialog();
+
         }
     }
 

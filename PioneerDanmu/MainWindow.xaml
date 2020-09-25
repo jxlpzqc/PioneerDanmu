@@ -9,12 +9,20 @@
         Title="先锋弹幕控制台窗口 by Chengzi" Height="450" Width="400">
     <StackPanel Margin="20">
         <Label>透明度</Label>
-        <Slider Margin="5" Minimum="0" Maximum="100" Value="70" ValueChanged="Slider_ValueChanged"></Slider>
+        <Slider Margin="5" Minimum="0" Maximum="100" Value="75" ValueChanged="Slider_ValueChanged"></Slider>
         <Button Margin="5" Click="Button_Click" Content="发送一个测试弹幕"/>
         <Button Margin="5" Click="ShowButton_Click" Content="显示弹幕"/>
         <Button Margin="5" Click="HideButton_Click" Content="隐藏弹幕"/>
 
-        <Button Margin="5">打开抽奖</Button>
+        <ListBox x:Name="questions" Height="120">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Content}"></TextBlock>
+                </DataTemplate>
+            </ListBox.ItemTemplate>    
+        </ListBox>
+        
+        <Button Margin="5" Click="LotteryButton_Click">打开抽奖</Button>
 
         <!--<Label>Mirai配置</Label>
 
