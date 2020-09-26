@@ -18,7 +18,11 @@
         Title="DanmuWindow" Height="450" Width="800">
     <Grid>
         <local:LotteryRect x:Name="rect" Panel.ZIndex="10000" Width="800" Height="450" HorizontalAlignment="Center" VerticalAlignment="Center"></local:LotteryRect>
-
+        <TextBlock Margin="15" HorizontalAlignment="Left" FontSize="13" Foreground="#CC000000" VerticalAlignment="Top">
+            Pioneer Danmu v2.0 compiled by An Honest Liar on Sep 25, 2020.
+            <LineBreak/>
+            Used Internally.
+        </TextBlock>
         <Canvas RenderOptions.BitmapScalingMode="LowQuality" x:Name="canvas" Margin="20">
         </Canvas>
     </Grid>

@@ -6,7 +6,10 @@
              xmlns:local="clr-namespace:PioneerDanmu"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Border  CornerRadius="20" Background="#FFB6EEB2">
+    <Border Background="#FFB6EEB2">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="6" ShadowDepth="1" Direction="300"/>
+        </Border.Effect>
         <Grid>
 
             <Grid Margin="40" x:Name="questionGrid">
@@ -14,7 +17,7 @@
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBlock x:Name="contentText" FontSize="38" FontFamily="Dengxian" FontWeight="Bold" Grid.RowSpan="2" Foreground="#FF8B1515">
+                <TextBlock TextWrapping="Wrap" x:Name="contentText" FontSize="38" FontFamily="Dengxian" FontWeight="Bold" Grid.RowSpan="2" Foreground="#FF8B1515">
                 这是一个测试问题，请回答：
                 </TextBlock>
                 <Grid Grid.Row="1">
